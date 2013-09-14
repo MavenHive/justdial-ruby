@@ -16,4 +16,5 @@ Gem::Specification.new do |gem|
   gem.version       = Justdial::VERSION
 
   gem.add_runtime_dependency(%q<rest-client>)
+  gem.add_runtime_dependency(%q<json>)
 end

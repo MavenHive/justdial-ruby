@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'rest-client'
+gem 'json'
 
 group :test do
   gem 'rake'
