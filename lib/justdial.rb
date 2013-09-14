@@ -3,12 +3,14 @@ require 'justdial/search'
 
 module JustDial
   class Client
-    def initialize(auth_tokens={})
+    def initialize(url, auth_tokens={})
+      @url = url
       @auth_tokens = auth_tokens
     end
 
     def search(params={})
-      Search.new(@auth_tokens, params)
+      search = Search.new(@url, @auth_tokens)
+      search.execute(params)
     end
   end
 end
