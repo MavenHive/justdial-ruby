@@ -1,11 +1,11 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path('../lib/justdial-ruby/version', __FILE__)
+require File.expand_path('../lib/justdial/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["CodeMangler"]
-  gem.email         = ["hsdpal@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.authors       = ["MavenHive Team"]
+  gem.email         = ["dev@mavenhive.in"]
+  gem.description   = %q{Ruby JustDial API client}
+  gem.summary       = %q{Ruby JustDial API client}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
@@ -13,5 +13,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "justdial-ruby"
   gem.require_paths = ["lib"]
-  gem.version       = Justdial::Ruby::VERSION
+  gem.version       = Justdial::VERSION
+
+  gem.add_runtime_dependency(%q<rest-client>)
 end
