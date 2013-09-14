@@ -1,5 +1,7 @@
 # Justdial::Ruby
 
+DISCLAIMER: This gem was created as part of our hack at Bangalore::Hack 2013 and therefore, is not production ready yet and we may or may not maintain it in future. So, use at your own risk.
+
 TODO: Write a gem description
 
 ## Installation
