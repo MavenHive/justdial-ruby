@@ -8,9 +8,11 @@ describe 'Search' do
       search_parameters = {query: 'car hire', city: 'bangalore',
                            area: 'jayanagar'}
       location_parameters = {latitude: '12.9667', longitude: '77.5667'}
-      expect(RestClient).to receive(:get).with(api_url, auth_tokens.merge(search_parameters).merge({geolocation: '12.9667,77.5667'}))
+      pagination_parameters = {num_res: 100}
+      expected_request_params = auth_tokens.merge(search_parameters).merge({geolocation: '12.9667,77.5667'}).merge(pagination_parameters)
+      expect(RestClient).to receive(:get).with(api_url, {params: expected_request_params})
       search = JustDial::Search.new(api_url, auth_tokens)
-      search.execute(search_parameters.merge(location_parameters))
+      search.execute(search_parameters.merge(location_parameters).merge(pagination_parameters))
     end
   end
 end
