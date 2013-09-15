@@ -8,13 +8,16 @@ module JustDial
     end
 
     def execute(params={})
-      valid_params = params.select { |key| [:query, :city, :area].include?(key) } # TODO: Implement Hash.slice
+      valid_params = params.select { |key| [:city, :area].include?(key) } # TODO: Implement Hash.slice
       latitude = params[:latitude]
       longitude = params[:longitude]
-      geolocation_params = {}
-      geolocation_params[:geolocation] = "#{latitude},#{longitude}" if !latitude.nil? && !longitude.nil?
       page_size = params[:num_res] || 100
-      request_params = @auth_tokens.merge(valid_params).merge(geolocation_params).merge({:num_res => page_size})
+      request_params = {}
+      request_params = request_params.merge(@auth_tokens).merge(valid_params)
+      request_params[:q] = params[:query]
+      request_params[:geolocation] = "#{latitude},#{longitude}" if !latitude.nil? && !longitude.nil?
+      request_params[:num_res] = page_size
+
       error = nil
       begin
         response = RestClient.get(@url, {:params => request_params, })
