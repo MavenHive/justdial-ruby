@@ -29,26 +29,30 @@ describe 'Search' do
     end
 
     describe 'Exceptions' do
+      before(:each) {
+        allow(stub_response).to receive(:to_s).and_return("{}")
+      }
+
       it 'raises QuotaExceeded for HTTP 306' do
-        expect(stub_response).to receive(:code).and_return(306)
+        expect(stub_response).to receive(:code).at_least(1).and_return(306)
         allow(RestClient).to receive(:get).and_return(stub_response)
         expect { search.execute({}) }.to raise_error(JustDial::QuotaExceeded)
       end
 
       it 'raises QuotaExceeded for HTTP 400' do
-        expect(stub_response).to receive(:code).and_return(400)
+        expect(stub_response).to receive(:code).at_least(1).and_return(400)
         allow(RestClient).to receive(:get).and_return(stub_response)
         expect { search.execute({}) }.to raise_error(JustDial::MissingParameters)
       end
 
       it 'raises QuotaExceeded for HTTP 401' do
-        expect(stub_response).to receive(:code).and_return(401)
+        expect(stub_response).to receive(:code).at_least(1).and_return(401)
         allow(RestClient).to receive(:get).and_return(stub_response)
         expect { search.execute({}) }.to raise_error(JustDial::Unauthorized)
       end
 
       it 'raises QuotaExceeded for HTTP 405' do
-        expect(stub_response).to receive(:code).and_return(405)
+        expect(stub_response).to receive(:code).at_least(1).and_return(405)
         allow(RestClient).to receive(:get).and_return(stub_response)
         expect { search.execute({}) }.to raise_error(JustDial::MethodNotAllowed)
       end

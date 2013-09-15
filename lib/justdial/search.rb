@@ -17,6 +17,7 @@ module JustDial
       request_params[:q] = params[:query]
       request_params[:geolocation] = "#{latitude},#{longitude}" if !latitude.nil? && !longitude.nil?
       request_params[:num_res] = page_size
+      puts "Request: url: #{@url} params: #{request_params}"
 
       error = nil
       begin
@@ -25,6 +26,8 @@ module JustDial
         response = e.response
         error = e
       end
+
+      puts "Response: #{response.code}, #{response.to_s}"
 
       case response.code
         when 200
