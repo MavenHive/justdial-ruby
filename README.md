@@ -2,7 +2,7 @@
 
 DISCLAIMER: This gem was created as part of our hack at Bangalore::Hack 2013 and therefore, is not production ready yet and we may or may not maintain it in future. So, use at your own risk.
 
-TODO: Write a gem description
+Ruby Client for JustDial API
 
 ## Installation
 
@@ -20,7 +20,9 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    require 'justdial'
+    client = JustDial::Client.new('http://hack2013.justdial.com/index.php', {event_token: 'event-token', token: 'request-token'})
+    client.search(query: 'plumber', city: 'bangalore')
 
 ## Contributing
 
