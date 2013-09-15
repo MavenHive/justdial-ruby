@@ -15,7 +15,7 @@ module JustDial
       geolocation_params[:geolocation] = "#{latitude},#{longitude}" if !latitude.nil? && !longitude.nil?
       page_size = params[:num_res] || 100
       request_params = @auth_tokens.merge(valid_params).merge(geolocation_params).merge({:num_res => page_size})
-      puts "Request: #{@url}/#{request_params.to_param}"
+      puts "Request: url: #{@url} params: #{request_params}"
 
       RestClient.get(@url, {:params => request_params}) { |response, request, result, &block|
         puts "Response: #{response.code}, #{response.to_s}"
