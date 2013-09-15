@@ -1,6 +1,7 @@
 require 'justdial/version'
 require 'justdial/search'
 require 'justdial/provider'
+require 'justdial/exceptions'
 
 module JustDial
   class Client

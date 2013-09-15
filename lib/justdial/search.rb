@@ -15,18 +15,28 @@ module JustDial
       geolocation_params[:geolocation] = "#{latitude},#{longitude}" if !latitude.nil? && !longitude.nil?
       page_size = params[:num_res] || 100
       request_params = @auth_tokens.merge(valid_params).merge(geolocation_params).merge({:num_res => page_size})
-      puts "Request: url: #{@url} params: #{request_params}"
+      error = nil
+      begin
+        response = RestClient.get(@url, {:params => request_params, })
+      rescue RestClient::Exception => e
+        response = e.response
+        error = e
+      end
 
-      RestClient.get(@url, {:params => request_params}) { |response, request, result, &block|
-        puts "Response: #{response.code}, #{response.to_s}"
-
-        case response.code
-          when 200
-            Provider.parse(response.to_s)
-          else
-            raise 'Bad Request'
-        end
-      }
+      case response.code
+        when 200
+          Provider.parse(response.to_s)
+        when 306
+          raise JustDial::QuotaExceeded
+        when 400
+          raise JustDial::MissingParameters
+        when 401
+          raise JustDial::Unauthorized
+        when 405
+          raise JustDial::MethodNotAllowed
+        else
+          raise error if !error.nil?
+      end
     end
   end
 end
